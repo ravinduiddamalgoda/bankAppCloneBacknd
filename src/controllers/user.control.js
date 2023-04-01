@@ -26,7 +26,7 @@ export const CurrentUser = async (req ,res) => {
 
 export const RegisterUser = async (req, res) => {
   try {
-    const { fname, lname, email, password } = req.body;
+    const { fname, lname, email, password , nic , tp} = req.body;
 
     const existingUser = await UserService.findUserByEmail(email);
 
@@ -36,8 +36,9 @@ export const RegisterUser = async (req, res) => {
       });
     }
 
-    const user = await UserService.register(fname, lname, email, password);
+    const user = await UserService.register(fname, lname, email, password , nic , tp);
     const account = await AccountService.registerAccount( email);
+
     res.status(201).send(user);
   } catch (err) {
     res.status(400).send({ err: err.message });

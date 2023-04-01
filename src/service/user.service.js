@@ -11,28 +11,29 @@ async function findUserByEmail(email){
     return existingUser;
 }
 
-
- async function register(fname , lname , email , password){
+async function register(fname , lname , email , password , nic , tp){
 
     const hash = await createPasswordHash(password);
     const newUser = new User({
         fname,
         lname,
         email,
-        password: hash
+        password: hash,
+        nic,
+        tp
     });
     
     await newUser.save();
     const userCpy =  JSON.parse(JSON.stringify(newUser));
 
-    //delete userCpy?.password
+    delete userCpy?.password
     return userCpy
 
 }
 
 async function login(email , password){
 
-    const acc = await User.findOne({ email})
+    const acc = await User.findOne({email})
 
     if (!acc){
         throw new Error ('User Not Found');

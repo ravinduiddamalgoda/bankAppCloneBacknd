@@ -9,7 +9,8 @@ userRouter.get('/currunt-user' , authGuard , CurrentUser);
 
 userRouter.post('/register' , validate([
     body('email').isEmail() , 
-    body('password').isLength({min:8})
+    body('password').isLength({min:8}) ,
+    body('tp').isLength({min:10}),
 ]), RegisterUser);
 
 userRouter.post('/login' , LoginUser)

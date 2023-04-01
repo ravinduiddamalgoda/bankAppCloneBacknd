@@ -8,17 +8,16 @@ import logRouter from './src/routes/log.route.js';
 //import userRouter from './src/controllers/user.control';
 //import userRouter from './src/controllers/user.control';
 //const userRouter = require('./src/controllers/user.control');
-// require("dotenv").config();
+// require("dotenv").config();    
 const app =  express();
 
 app.use(bodyParser.json());
-const url = 'mongodb+srv://user_dev:test123@jobclone.u4tnvcc.mongodb.net/?retryWrites=true&w=majority';
-const port = 3000;
+const url = 'mongodb+srv://userBank:1234@bankapp.lrmrpna.mongodb.net/?retryWrites=true&w=majority';
+const port = 5000;
 
 async function connectDB(url , connectionParams){
     
-       await mongoose.connect(url , connectionParams);
-       
+       await mongoose.connect(url , connectionParams);       
        // console.log("DB Connected");
 }
 
@@ -27,7 +26,7 @@ connectDB(url , {}).then(()=>{
 
     console.log("Database Connected");
     app.listen(port , ()=>{
-        console.log("Listening on port 3000");
+        console.log("Listening on port 5000");
     });
 }).catch((err)=>{
     console.error('Connection Error',err);
