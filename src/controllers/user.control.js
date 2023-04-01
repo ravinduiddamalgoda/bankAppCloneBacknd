@@ -1,4 +1,5 @@
 import UserService from "../service/user.service.js";
+import AccountService from '../service/account.service.js'
 
 export const CurrentUser = async (req ,res) => {
     const curntUser  = req.user;
@@ -36,6 +37,7 @@ export const RegisterUser = async (req, res) => {
     }
 
     const user = await UserService.register(fname, lname, email, password);
+    const account = await AccountService.registerAccount( email);
     res.status(201).send(user);
   } catch (err) {
     res.status(400).send({ err: err.message });
