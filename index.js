@@ -12,7 +12,7 @@ const app =  express();
 
 app.use(bodyParser.json());
 const url = 'mongodb+srv://userBank:1234@bankapp.lrmrpna.mongodb.net/?retryWrites=true&w=majority';
-const port = 3000;
+const port = 5000;
 
 async function connectDB(url , connectionParams){
     
@@ -25,7 +25,7 @@ connectDB(url , {}).then(()=>{
 
     console.log("Database Connected");
     app.listen(port , ()=>{
-        console.log("Listening on port 3000");
+        console.log("Listening on port 5000");
     });
 }).catch((err)=>{
     console.error('Connection Error',err);

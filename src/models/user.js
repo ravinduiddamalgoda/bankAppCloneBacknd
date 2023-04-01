@@ -12,7 +12,11 @@ const userSchema =  new Schema({
         required: true,
         type: String,
     },
-   
+    nic: {
+        required: true,
+        type: String,
+    },
+  
 });
 
 const User =  mongoose.model('User' , userSchema);
