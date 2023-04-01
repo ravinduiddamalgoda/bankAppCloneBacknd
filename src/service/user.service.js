@@ -11,8 +11,7 @@ async function findUserByEmail(email){
     return existingUser;
 }
 
-
- async function register(fname , lname , email , password){
+async function register(fname , lname , email , password){
 
     const hash = await createPasswordHash(password);
     const newUser = new User({
@@ -32,7 +31,7 @@ async function findUserByEmail(email){
 
 async function login(email , password){
 
-    const acc = await User.findOne({ email})
+    const acc = await User.findOne({email})
 
     if (!acc){
         throw new Error ('User Not Found');

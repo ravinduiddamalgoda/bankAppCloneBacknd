@@ -7,17 +7,16 @@ import userRouter from './src/routes/user.route.js';
 //import userRouter from './src/controllers/user.control';
 //import userRouter from './src/controllers/user.control';
 //const userRouter = require('./src/controllers/user.control');
-// require("dotenv").config();
+// require("dotenv").config();    
 const app =  express();
 
 app.use(bodyParser.json());
-const url = 'mongodb+srv://user_dev:test123@jobclone.u4tnvcc.mongodb.net/?retryWrites=true&w=majority';
+const url = 'mongodb+srv://userBank:1234@bankapp.lrmrpna.mongodb.net/?retryWrites=true&w=majority';
 const port = 3000;
 
 async function connectDB(url , connectionParams){
     
-       await mongoose.connect(url , connectionParams);
-       
+       await mongoose.connect(url , connectionParams);       
        // console.log("DB Connected");
 }
 
