@@ -50,7 +50,7 @@ export const createLog = async (req, res) => {
           res.status(400).send({ err: err.message });
         });
 
-      res.status(201).send("Transaction is Successfuly Done");
+      res.status(201).send({status: "Transaction is Successfuly Done"});
     } else {
       return res.status(400).send({
         err: "Account Not Found!",

@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import { createPasswordHash, signToken } from "./auth.service.js";
 
 
+
 async function findUserByEmail(email){
 
     const existingUser = await User.findOne({
@@ -26,7 +27,7 @@ async function register(fname , lname , email , password , nic , tp){
     await newUser.save();
     const userCpy =  JSON.parse(JSON.stringify(newUser));
 
-    delete userCpy?.password
+    // delete userCpy?.password
     return userCpy
 
 }

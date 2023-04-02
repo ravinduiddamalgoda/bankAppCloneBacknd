@@ -4,13 +4,14 @@ import express from 'express';
 import mongoose from 'mongoose';
 import userRouter from './src/routes/user.route.js';
 import logRouter from './src/routes/log.route.js';
-
+import cors from 'cors';
+import accRoute from './src/routes/account.route.js';
 //import userRouter from './src/controllers/user.control';
 //import userRouter from './src/controllers/user.control';
 //const userRouter = require('./src/controllers/user.control');
 // require("dotenv").config();    
 const app =  express();
-
+app.use(cors());
 app.use(bodyParser.json());
 const url = 'mongodb+srv://userBank:1234@bankapp.lrmrpna.mongodb.net/?retryWrites=true&w=majority';
 const port = 5000;
@@ -34,8 +35,8 @@ connectDB(url , {}).then(()=>{
  
 
 app.use(userRouter)
-app.use(logRouter)
-
+app.use('/log' , logRouter)
+app.use('/acc' , accRoute)
 // async function connectDb(){
 
 //     await mongoose.connect(url);

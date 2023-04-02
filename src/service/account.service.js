@@ -8,6 +8,7 @@ function deduct(num1, num2) {
   return parseFloat(num1) - parseFloat(num2);
 }
 async function registerAccount(email) {
+  
   const newAccount = new Account({
     accountNo: "ABC5",
     ownersEmail: email,
@@ -15,6 +16,20 @@ async function registerAccount(email) {
   });
 
   await newAccount.save();
+}
+
+
+async function addAmoutFirst(email){
+  
+}
+
+
+async function findAccByEmail(email){
+  const userByEmail = await Account.findOne({ownersEmail:email})
+  if(userByEmail)
+    return userByEmail
+  else
+    return { err: "Not Found" }
 }
 
 async function findAccountByAc(accountNo) {
@@ -78,4 +93,5 @@ export default {
   updateReceiverAccount,
   updateSenderAccount,
   calculateBalance,
+  findAccByEmail
 };

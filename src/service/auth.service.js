@@ -10,18 +10,23 @@ const JWT_OPTIONS = {
 }
 
 export function createPasswordHash(password){
-
-    return bcrypt.hash(password , 10);
+    // const val =  bcrypt.hash(password ,10);
+    // // console.log(val)
+    // return val
+     return bcrypt.hash(password , 10);
 }
 
-export function validatePassword (password , hash){
-    return bcrypt.compare(password , hash)
+export async function validatePassword (password , hash){
+    
+    return await bcrypt.compare(hash , password)
 }
 
 export function signToken(password , hash , payload){
     const isValidPassword = validatePassword(password , hash);
     if (!isValidPassword){
         throw new Error('Invalid Password');
+    }else{
+        console.log("password correct")
     }
 
     const token = jwt.sign(payload , APP_SECRET, JWT_OPTIONS );
