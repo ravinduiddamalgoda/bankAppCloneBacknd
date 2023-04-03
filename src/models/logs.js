@@ -7,10 +7,6 @@ const logSchama = new Schema ({
         required: true,
         type: String
     },
-    type : {
-        required: true,
-        type: String
-    },
     recieverAC : {
         required: true,
         type: String

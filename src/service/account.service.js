@@ -6,20 +6,66 @@ function add(num1, num2) {
 
 function deduct(num1, num2) {
   return parseFloat(num1) - parseFloat(num2);
+
 }
+
+ function generateACCID() {
+
+  let chars = '0123456789'; // Characters to use for ID
+  let accID = '';
+  for (let i = 0; i < 8; i++) { // Loop 8 times to create 8 character ID
+    accID += chars.charAt(Math.floor(Math.random() * chars.length)); // Add random character from chars to ID
+  }
+  console.log(accID);
+  // Check if ID has already been generated
+  const existingAccNO = findACbyACno(accID);
+
+  if (!existingAccNO) {
+    // If so, generate a new ID
+    return generateACCID();
+  } else {
+    // Otherwise, add ID to generatedIDs array and return it
+    let fAcc = accID.toString();
+    return fAcc
+  }
+}
+
+
+
+
+
 async function registerAccount(email) {
   
+  const accNum = generateACCID();
+  // const val = await findACbyACno('123213221')
+  // console.log(val)
   const newAccount = new Account({
-    accountNo: "ABC5",
+    accountNo: accNum,
     ownersEmail: email,
     amount: 0,
   });
-
+  // console.log(accNum);
   await newAccount.save();
+  
 }
 
 
-async function addAmoutFirst(email){
+async function addAmoutAcc(accno , amount){
+
+  try{
+    const userData = await findAccountByAc(accno);
+
+    const tot = add(userData?.amount , amount)
+
+    await Account.findOneAndUpdate({ accountNo: accno }, { amount: amount });
+    
+
+  }
+  catch(err){
+    return { err: "Not Found" }
+  }
+  
+  
   
 }
 
@@ -32,9 +78,18 @@ async function findAccByEmail(email){
     return { err: "Not Found" }
 }
 
+async function findACbyACno(accNo){
+  const existinAccount = await Account.findOne({accountNo:accNo});
+  if(!existinAccount)
+    return true
+  else
+    return false
+}
+
+
 async function findAccountByAc(accountNo) {
   const existinAccount = await Account.findOne({
-    accountNo,
+    accountNo:accountNo
   });
 
   return existinAccount;
@@ -84,6 +139,7 @@ async function totalAmount(currentAmount, transferamount) {
   //       }
   //     }
   //   ]
+  
 }
 
 export default {

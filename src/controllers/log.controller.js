@@ -3,14 +3,13 @@ import Log from "../models/logs.js";
 
 export const createLog = async (req, res) => {
   try {
-    const { senderAC, type, recieverAC, amount } = req.body;
+    const { senderAC, recieverAC, amount } = req.body;
 
     const existinAccount = await AccountService.findAccountByAc(senderAC);
 
     if (existinAccount) {
       const newLog = new Log({
         senderAC: senderAC,
-        type: type,
         recieverAC: recieverAC,
         amount: amount,
       });
@@ -19,7 +18,7 @@ export const createLog = async (req, res) => {
         .save()
         .then(async () => {
           const senderAccount = await AccountService.findAccountByAc(senderAC);
-          const afterAmount = await AccountService.balanceAmount(
+          const afterAmount = await AccountService.calculateBalance(
             senderAccount.amount,
             amount
           );
@@ -27,7 +26,7 @@ export const createLog = async (req, res) => {
           if (afterAmount > 0) {
             await AccountService.updateSenderAccount(senderAC, afterAmount)
               .then(async () => {
-                const receiverAccount = await AccountService.findAmountByAc(
+                const receiverAccount = await AccountService.findAccountByAc(
                   recieverAC
                 );
                 const totalAmount = await AccountService.totalAmount(

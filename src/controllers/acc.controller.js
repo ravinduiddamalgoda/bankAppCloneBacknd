@@ -1,10 +1,10 @@
 import AccountService from "../service/account.service.js";
 import Account from "../models/account.js";
 
-export const findAmount = async (req, res) => { 
+export const findACC = async (req, res) => { 
     try{
-        const { email } = req.body;
-        const exitingAcc = await AccountService.findAccByEmail(email);
+        const curntUser  = req.user;
+        const exitingAcc = await AccountService.findAccByEmail(curntUser.email);
 
         if(exitingAcc){
             return res.status(200).json(exitingAcc);
@@ -17,3 +17,5 @@ export const findAmount = async (req, res) => {
     }
 
 }
+
+
